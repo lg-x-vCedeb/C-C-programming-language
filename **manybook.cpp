@@ -3,7 +3,7 @@
 #include <string.h>
 #define MAXTITL 40
 #define MAXAUTL 40
-#define MAXBKS 10
+#define MAXBKS 100
 struct book{
 	char title[MAXTITL];
 	char author[MAXAUTL];
