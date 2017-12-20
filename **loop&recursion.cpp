@@ -1,3 +1,4 @@
+//Calculate the fatorial by looping and recursion.
 #include <stdio.h>
 #include <Windows.h>
 long fact(int n);
