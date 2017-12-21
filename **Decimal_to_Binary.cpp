@@ -24,5 +24,8 @@ void to_binary(unsigned long n){
 	if(n >= 2)
 		to_binary(n/2);
 	putchar('0'+binary);
+	//If r is 0, '0'+r is char '0'; if r is 1, '0'+r is char '1', which depends on the condition that the numberic code of '1' is bigger than '0' in ASCII or EBCDIC.
+	//ASCII  (American Standard Code of Information Interchange)
+	//EBCDIC (Exitended Binary Coded Demical Interchange Code)
 	//printf("%d\n",'0'+binary);(Wrong for they are only need one char.)
 }
