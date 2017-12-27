@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAXNAME		20
-#define MAXID		5
-#define MAXSTUDENTS 20
-//#define NUMQUESTION 4.00
-#define NUMASSIGN	6
+#define MAXNAME			20
+#define MAXID			5
+#define MAXSTUDENTS 		20
+//#define NUMQUESTION 		4.00
+#define NUMASSIGN		6
 #define A			4.00
 #define B			3.00
 #define C			2.00
@@ -79,10 +79,11 @@ int main(){
 		}
 
 		//选择
+		sign_ASS = 1;
 		while(sign_ASS == 1){
 			printf("\nPlease input 1-5 to choose which assignment you want to mark.(Enter 'q' to quit; Enter 'n' to mark the next student's Assignment; Enter 'c' to choose the student)\n");
 			setbuf(stdin, NULL);
-			scanf_s("%c",&AssNum);
+			scanf_s("%c",&AssNum,sizeof(AssNum));
 			//printf("%c", AssNum);
 			//选择q结束程序//返回主菜单
 			if (AssNum == 'q')
@@ -105,16 +106,16 @@ int main(){
 				}
 				break;
 			}
-			while((AssNum>'5' || AssNum<'1') && (AssNum != 'n' || AssNum != 'q')){
+			while((AssNum>'5' || AssNum<'1') && (AssNum != 'n' || AssNum != 'q' || AssNum != 'c')){
 				printf("There are only 5 Assignment, choose it in range 1-5.\n");
 				printf("Please choose it again.\n");
 				setbuf(stdin, NULL);
 				scanf_s("%c",&AssNum);
 			}
 			//计算
-			printf("How many questions in this assignment%d? Please enter.\n",AssNum);
+			printf("How many questions in this assignment%d? Please enter.\n",(int)AssNum - 48);
 			scanf_s("%d",&NumofQues);
-			printf("To calculate the total mark of assignment%d, you need to input each mark of the questions in assignment%d.\n",AssNum,AssNum);
+			printf("To calculate the total mark of assignment%d, you need to input each mark of the questions in assignment%d.\n",(int)AssNum - 48,(int)AssNum - 48);
 			for(int g = 1;g<=NumofQues;g++){
 
 				printf("Question %d is:",g);
@@ -154,9 +155,9 @@ int main(){
 			Assmark = 0;
 			
 			//判断是否填完所有的Assignment
-			for (int j = 1; j<NUMASSIGN-1; j++) {
+			for (int j = 1; j<NUMASSIGN-2; j++) {
 				
-				if (Students[preStu].Ass[j] < 0.00 || Students[preStu+1].Ass[j] < 0.00) {
+				if (Students[preStu].Ass[j] < 0.00 || Students[preStu].Ass[j+1] < 0.00) {
 					//Students[preStu].Ass[j] = 0;
 					sign_ASS = 1;
 					//printf("%d\n",j);
@@ -170,8 +171,10 @@ int main(){
 			//预览
 			fprintf(grade,"%s\t%s\tAssignment1\tAssignment2\tAssignment3\tAssignment4\tAssignment5\n",Students[0].name,Students[0].Id);
 			fprintf(grade,"%s\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\n",Students[preStu].name,Students[preStu].Id,Students[preStu].Ass[0],Students[preStu].Ass[1],Students[preStu].Ass[2],Students[preStu].Ass[3],Students[preStu].Ass[4]);
+			printf("%s\t%s\tAssignment1\tAssignment2\tAssignment3\tAssignment4\tAssignment5\n",Students[0].name,Students[0].Id);
 			printf("%s\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\n", Students[preStu].name, Students[preStu].Id, Students[preStu].Ass[0], Students[preStu].Ass[1], Students[preStu].Ass[2], Students[preStu].Ass[3], Students[preStu].Ass[4]);
 			while((ch = fgetc(grade)) != EOF){
+				putc(ch,stdout);
 				if ((int)(ch = fgetc(grade)) == 0xcd)
 					break;
 				putc(ch,stdout);
@@ -187,10 +190,18 @@ int main(){
 	//最后预览+确认
 	grade = fopen("mark.txt", "w+");
 	fprintf(grade, "%s\t%s\tAssignment1\tAssignment2\tAssignment3\tAssignment4\tAssignment5\n", Students[0].name, Students[0].Id);
-	for (int EachStu = 1; EachStu < NumofStu; EachStu++)
+	printf("%s\t%s\tAssignment1\tAssignment2\tAssignment3\tAssignment4\tAssignment5\n",Students[0].name,Students[0].Id);
+			
+	for (int EachStu = 1; EachStu < NumofStu; EachStu++){
 		fprintf(grade, "%s\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\n", Students[EachStu].name, Students[EachStu].Id, Students[EachStu].Ass[0], Students[EachStu].Ass[1], Students[EachStu].Ass[2], Students[EachStu].Ass[3], Students[EachStu].Ass[4]);
-	while((ch = getc(grade))!=EOF)
-		putc(ch, stdout);
+		printf("%s\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\n", Students[EachStu].name, Students[EachStu].Id, Students[EachStu].Ass[0], Students[EachStu].Ass[1], Students[EachStu].Ass[2], Students[EachStu].Ass[3], Students[EachStu].Ass[4]);
+	}
+	while((ch = getc(grade))!=EOF){
+		putc(ch,stdout);
+		if ((int)(ch = fgetc(grade)) == 0xcd)
+			break;
+		putc(ch,stdout);
+	}
 	printf("Comfirm? (Enter 'Y' to Confirm or enter 'N' to fix)\n");
 	setbuf(stdin, NULL);
 	scanf_s("%c",&sign_Confirm,sizeof(sign_Confirm));
