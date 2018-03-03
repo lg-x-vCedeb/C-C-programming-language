@@ -14,7 +14,7 @@ int main(){
 	scanf_s("%s",&TestString,sizeof(TestString));
 	TestString[strlen(TestString)] = '\0';
 	printf("%s =>",TestString);
-	reverseR(strlen(TestString),TestString);
+	reverseR(strlen(TestString),TestString);//Using resursive function.
 	printf("%s\n",TestString);
 	system("pause");
 	return 0;
@@ -24,13 +24,13 @@ void reverseR(int length, char *str){
 	char c;
 	length = strlen(str);
 	if(length <= 1)
-		printf(" *");
-	else if(length > 1){
-		c = *str;
-		*str = *(str + length - 1);
-		*(str + length -1) = '\0';
-		reverseR(strlen(str + 1),str + 1);
-		*(str + length -1) = c;
+		printf(" *");				//Cover the final '\0'
+	else if(length > 1){				
+		c = *str;				//Using variable c to store the FIRST element in str[].
+		*str = *(str + length - 1);		//Using the front element to store the hind element.
+		*(str + length -1) = '\0';		//Using '\0' to cover the hind element.
+		reverseR(strlen(str + 1),str + 1);	//Move the addresses of the elements to recursively calculate.
+		*(str + length -1) = c;			//put back all the FIRST elements to the hind of the first '\0'. 
 	}
 }
 //*/
