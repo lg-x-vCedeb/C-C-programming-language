@@ -43,5 +43,5 @@ int GCD(int x,int y){
 	if(y == 0)
 		return x;
 	if(y > 0)
-		return GCD(y, x%y);
+		return GCD(y, x%y);//Recursive calculation.
 }
