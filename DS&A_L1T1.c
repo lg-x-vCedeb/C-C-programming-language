@@ -5,12 +5,12 @@
 int factR(int n);
 
 int main(){
-	int NumToCpt;
+	int NumToCpt;//define a number to compute factorial.
 	for(;;){
 		printf("What number's fatorial you want to compute?\n");
 		scanf_s("%d",&NumToCpt,sizeof(NumToCpt));
 		if(NumToCpt >= 1){
-			printf("The %d's fatorial is %d.\n",NumToCpt,factR(NumToCpt));
+			printf("The %d's fatorial is %d.\n",NumToCpt,factR(NumToCpt));//Output the answer.
 			break;
 		}
 		if(NumToCpt < 1)
@@ -25,6 +25,6 @@ int factR(int num){
 	if(num == 1)
 		return 1;
 	if(num > 1)
-		i = num * factR(num - 1);
+		i = num * factR(num - 1);//Recursive calculation.
 	return i;
 }
