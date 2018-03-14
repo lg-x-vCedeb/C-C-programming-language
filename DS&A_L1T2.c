@@ -35,7 +35,7 @@ void reverseR(int length, char *str){
 }
 //*/
 
-/*
+#if 0
 //Pointers method:
 int main(){
 	char TestString[51];
@@ -65,4 +65,4 @@ void reverseP(int length, char *str){
 		i++;
 	}
 }
-*/
+#endif
