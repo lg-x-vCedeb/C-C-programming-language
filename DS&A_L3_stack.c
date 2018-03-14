@@ -3,13 +3,13 @@
 #include <Windows.h>
 #include "stack.h"
 #define EMPTY -1
-/*
+#if 0
 typedef struct{
 	double* values;
 	int top;
 	int maxTop;
 }Stack;
-*/
+#endif
 bool CreateStack(Stack *stack, int size);
 bool IsEmpty(Stack* stack);
 bool IsFull(Stack* stack);
@@ -69,15 +69,17 @@ void DisplayStack(Stack* stack){
 	}
 	printf("       ------------------\n");
 }
-/*
+#if 0
 void DestoryStack(Stack* stack){
 	if(stack){
 		free(stack);
 	}
-}*/
-
+}
+#endif
+#if
 //#include <stdio.h>
 //#include "stack.h"
+#endif
 int main(void) {
 	Stack stack;
 	double val;
