@@ -33,7 +33,7 @@ bool IsEmpty(Stack* stack){
 }
 
 bool IsFull(Stack* stack){
-	return (stack->top == int(stack->values) - 1);
+	return (stack->top == int(stack->maxTop));
 }
 
 bool Top(Stack* stack, double* x){
@@ -44,6 +44,7 @@ bool Top(Stack* stack, double* x){
 	else
 		return false;
 }
+	
 bool Push(Stack* stack, double x){
 	if(!IsFull(stack)){
 		stack->values[++stack->top] = x;
@@ -65,9 +66,9 @@ bool Pop(Stack* stack, double* x){
 
 void DisplayStack(Stack* stack){
 	for(int i = int(stack->top);i > -1;i--){
-		printf("%s |		%f		|\n",stack->top == stack->maxTop ? "      " : "top-->",stack->values[i]);
+		printf("%s |		%f		|\n",(i != stack->top) ? "      " : "top-->",stack->values[i]);
 	}
-	printf("       ------------------\n");
+	printf("       ------------------------------------------\n");
 }
 #if 0
 void DestoryStack(Stack* stack){
@@ -76,7 +77,7 @@ void DestoryStack(Stack* stack){
 	}
 }
 #endif
-#if
+#if 0
 //#include <stdio.h>
 //#include "stack.h"
 #endif
@@ -95,7 +96,7 @@ int main(void) {
 	if(Top(&stack, &val))
 		printf("Top: %g", val);
 	while(!IsEmpty(&stack))
-	Pop(&stack, &val);
+		Pop(&stack, &val);
 	DisplayStack(&stack);
 	//DestroyStack(&stack);
 	system("pause");
