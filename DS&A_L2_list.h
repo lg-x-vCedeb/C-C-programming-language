@@ -62,3 +62,16 @@ void DestroyList(Node* head);
  input:
 	head - pointer to the first node
 */
+int DeleteNodes(Node** phead, double x);
+/* 
+ function:
+	Removes all the elements from a linked list that have valuex.
+	Return the number of occurrences of x.
+ input: 
+	x - node->value which need to be deleted.
+*/
+void RemoveDuplicates(Node** phead); 
+/*
+	Deletes all nodes that have duplicate values, leaving only nodes with distinct values
+	You may assume that the node values are nondecremental in this method
+*/
