@@ -114,7 +114,45 @@ void DestroyList(Node* head){
 	head = NULL;
 }
 
-
+int NumOfTarget = 0;
+int DeleteNodes(Node** phead, double x){
+	int position = 0;
+	Node* LeaveNode = *phead;
+	Node* PreLeaveNode;
+	while(position = FindNode(LeaveNode,x),position != 0){
+		NumOfTarget++;
+		for(int i = 1;i <= position;i++){
+			PreLeaveNode = LeaveNode;
+			LeaveNode = LeaveNode->next;
+		}
+		if(LeaveNode->next != NULL){
+			PreLeaveNode->next = LeaveNode->next;
+			free(LeaveNode);
+		}
+		else
+			free(LeaveNode);
+	}
+	if(position == 0)
+		return FALSE;
+	return NumOfTarget;
+}
+	
+void RemoveDuplicates(Node** phead){
+	Node* TargetNode = *phead;
+	Node* PreNode;
+	Node* PrepreNode;
+	while(TargetNode->next != NULL){
+		PreNode = TargetNode;
+		TargetNode = TargetNode->next;
+		PrepreNode = PreNode;
+		PreNode = PreNode->next;
+		if(PreNode->data == TargetNode->data){
+			PrepreNode->next = TargetNode->next;
+			free(PreNode);
+			free(TargetNode);
+		}
+	}
+}
 int main(){
 	
 }
