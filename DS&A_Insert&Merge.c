@@ -6,25 +6,31 @@
 #define SIZE_OF_ARRAY 10
 
 int main(void){
+	int mnum;
 	double start1,start2,end1,end2;
 	int *A1 = (int*)malloc(sizeof(int)*SIZE_OF_ARRAY);
 	for(int i = 0;i<SIZE_OF_ARRAY;i++)
 		A1[i] = rand() % 100000;
 	int *A2 = (int*)malloc(sizeof(int)*SIZE_OF_ARRAY);
-	A2 = A1;
+	for(int j = 0;j<SIZE_OF_ARRAY;j++){
+		mnum = A1[j];
+		A2[j] = mnum;
+	}
 
-#if 0
+//#if 0
 	for(int j = 0;j<10;j++)
 		printf("%d\t%d\n",A1[j],A2[j]);
-#endif
+//#endif
 
 	start1 = clock();
 	InsertionSort(A1,SIZE_OF_ARRAY);
 	end1 = clock();
 
 	start2 = clock();
-	MergeSort(A2,0,SIZE_OF_ARRAY);
+	MergeSort(A2,0,SIZE_OF_ARRAY-1);
 	end2 = clock();
+	for(int j = 0;j<10;j++)
+		printf("%d\t%d\n",A1[j],A2[j]);
 
 	printf("The time of insert sort is %f\nThe time of merge sort is %f\n",end1-start1,end2-start2);
 	system("pause");
@@ -34,15 +40,21 @@ int main(void){
 void InsertionSort(int* A, int n){
 	int num;//Transition number
 	for(int i = 0; i < n - 1;i++){
-		if(A[i] > A[i+1]){
-			num = A[i];
-			A[i] = A[i+1];
-			A[i+1] = num;
+		for(int j = 0; j < n - 1;j++){
+			if(A[i] < A[j]){
+				num = A[i];
+				A[i] = A[j];
+				A[j] = num;
+			}
+			else
+				continue;
 		}
-		else
-			continue;
 	}
 	printf("list sorted!!\n");
+#if 0
+	for(int l = 0; l < n - 1;l++)
+		printf("%d ",A[l]);
+#endif
 }
 
 void MergeSort(int* A, int left, int right){
@@ -50,30 +62,64 @@ void MergeSort(int* A, int left, int right){
 	int sign = 0;
 	int newleft, newright;
 	int center = (right+left)/2;
-	if(right - left != 1){
+	if(right - left > 2){
 		newright = center;
 		newleft = center + 1;
 		MergeSort(A,left,newright);
 		MergeSort(A,newleft,right);
 	}
-	else if (right - left == 1 || right == left){
-		sign = 1;
+	else if (right - left == 2 || right - left == 1 || right == left){
+		printf("%d\t%d\n",right,left);
+		while(right != SIZE_OF_ARRAY - 1){
+			for(int j = 0;j <= center - left;j++){
+				for(int k = 0;k <= center - left;k++){
+					if(A[left + j] > A[right - k]){
+						num = A[left + j];
+						A[left + j] = A[right - k];
+						A[right - k] = num;
+						continue;
+					}
+					else
+						continue;
+				}
+			}
+			center = right;
+			right += right - left;
+			if(center == SIZE_OF_ARRAY)
+				break;
+		}
 	}
-	else if (sign == 1){
-		for(int j =0;j <= center - left;j++){
+	/*
+	else if(sign == 1 && right - left == SIZE_OF_ARRAY - 1){
+		printf("ok?\n");
+		for(int j = 0;j <= center - left;j++){
 			for(int k = 0;k <= center - left;k++){
 				if(A[left + j] > A[right - k]){
 					num = A[left + j];
 					A[left + j] = A[right - k];
 					A[right - k] = num;
+					continue;
 				}
 				else
 					continue;
 			}
-			center += right - center;
-			right += right - left;
-			if(center = SIZE_OF_ARRAY)
-				break;
 		}
 	}
+	else if (sign == 1){
+		for(int j = 0;j <= center - left;j++){
+			for(int k = 0;k <= center - left;k++){
+				if(A[left + j] > A[right - k]){
+					num = A[left + j];
+					A[left + j] = A[right - k];
+					A[right - k] = num;
+					continue;
+				}
+				else
+					continue;
+			}
+			
+		}
+		
+	}*/
+	
 }
