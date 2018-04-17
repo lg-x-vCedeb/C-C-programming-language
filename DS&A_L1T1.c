@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <Windows.h>
-int factR(int n);
+long factR(int n);
 
 int main(){
 	int NumToCpt;//define a number to compute factorial.
@@ -10,7 +10,7 @@ int main(){
 		printf("What number's fatorial you want to compute?\n");
 		scanf_s("%d",&NumToCpt,sizeof(NumToCpt));
 		if(NumToCpt >= 1){
-			printf("The %d's fatorial is %d.\n",NumToCpt,factR(NumToCpt));//Output the answer.
+			printf("The %d's fatorial is %ld.\n",NumToCpt,factR(NumToCpt));//Output the answer.
 			break;
 		}
 		if(NumToCpt < 1)
@@ -20,7 +20,7 @@ int main(){
 	return 0;
 }
 
-int factR(int num){
+long factR(int num){
 	int i;
 	if(num == 1)
 		return 1;
@@ -28,3 +28,9 @@ int factR(int num){
 		i = num * factR(num - 1);//Recursive calculation.
 	return i;
 }
+
+#if 0
+long factR(int num){
+	return (num == 1)? 1 : num * factR(num - 1);
+}
+#endif
